@@ -68,7 +68,7 @@ kfree(void *pa)
   pop_off();
 
   acquire(&kmem[cpu].lock);
-  r->next = kmem[cpu].freelist;
+  r->next = kmem[cpu].freelist;// 从链表头插入空闲页
   kmem[cpu].freelist = r;
   release(&kmem[cpu].lock);
 }
