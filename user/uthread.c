@@ -97,7 +97,7 @@ thread_create(void (*func)())
   }
   t->state = RUNNABLE;
   // YOUR CODE HERE
-  t->context.ra = (uint64)func;
+  t->context.ra = (uint64)func;  // 执行传入的函数
   t->context.sp = (uint64)(t->stack + STACK_SIZE);  // 指向栈底
 }
 
