@@ -145,7 +145,6 @@ e1000_recv(void)
   uint64 rdt = regs[E1000_RDT];
   uint64 index = (rdt + 1) % RX_RING_SIZE;
 
-  // acquire(&e1000_lock);  // 锁定以进行安全的并发访问
 
   if(!(rx_ring[index].status & E1000_RXD_STAT_DD)){
     // 查看新的 packet 是否有 E1000_RXD_STAT_DD 标志，如果没有，则直接返回
@@ -171,7 +170,6 @@ e1000_recv(void)
     index = (regs[E1000_RDT] + 1) % RX_RING_SIZE;
   }
 
-  // release(&e1000_lock);  // 在循环结束后释放锁
 }
 
 void
