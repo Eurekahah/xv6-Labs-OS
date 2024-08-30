@@ -179,8 +179,7 @@ uvmunmap(pagetable_t pagetable, uint64 va, uint64 npages, int do_free)
       // panic("uvmunmap: not mapped");
     }
     if(PTE_FLAGS(*pte) == PTE_V){
-      continue;   // lab 10
-      // panic("uvmunmap: not a leaf");
+      panic("uvmunmap: not a leaf");
     }
     if(do_free){
       uint64 pa = PTE2PA(*pte);
@@ -313,7 +312,8 @@ uvmcopy(pagetable_t old, pagetable_t new, uint64 sz)
     if((pte = walk(old, i, 0)) == 0)
       panic("uvmcopy: pte should exist");
     if((*pte & PTE_V) == 0)
-      panic("uvmcopy: page not present");
+      continue;
+      //panic("uvmcopy: page not present");
     pa = PTE2PA(*pte);
     flags = PTE_FLAGS(*pte);
     if((mem = kalloc()) == 0)

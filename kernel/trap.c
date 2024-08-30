@@ -70,9 +70,9 @@ usertrap(void)
 
     syscall();
   } else if (r_scause() == 12 || r_scause() == 13
-             || r_scause() == 15) { // mmap page fault - lab10
+             || r_scause() == 15) { // 缺页异常 // mmap page fault - lab10
     char *pa;
-    uint64 va = PGROUNDDOWN(r_stval());
+    uint64 va = PGROUNDDOWN(r_stval()); // 获取缺页地址
     struct vm_area *vma = 0;
     int flags = PTE_U;
     int i;
