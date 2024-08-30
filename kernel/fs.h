@@ -35,7 +35,7 @@ struct superblock {
 // +-----+
 // |     | <- DBL_INDIRECT
 // +-----+
-#define NDIRECT 11
+#define NDIRECT 11 // 把块改为11个直接块
 #define NINDIRECT (BSIZE / sizeof(uint))
 #define NDBL_INDIRECT (NINDIRECT * NINDIRECT)
 #define MAXFILE (NDIRECT + NINDIRECT + NDBL_INDIRECT)
@@ -48,6 +48,7 @@ struct dinode {
   short nlink;          // Number of links to inode in file system
   uint size;            // Size of file (bytes)
   uint addrs[NDIRECT+2];   // Data block addresses
+  // NDIRECT从12改为了11，因此数据块的地址要改为NDIRECT+2个以保持大小一致
 };
 
 // Inodes per block.

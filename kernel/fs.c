@@ -467,7 +467,7 @@ itrunc(struct inode *ip)
       ip->addrs[i] = 0;
     }
   }
-
+  // 释放一级索引目录对应的物理块
   if(ip->addrs[NDIRECT]){
     bp = bread(ip->dev, ip->addrs[NDIRECT]);
     a = (uint*)bp->data;
@@ -479,7 +479,7 @@ itrunc(struct inode *ip)
     bfree(ip->dev, ip->addrs[NDIRECT]);
     ip->addrs[NDIRECT] = 0;
   }
-
+  // 释放二级索引目录对应的物理块
   if (ip->addrs[NDIRECT + 1]) {
     // 读取双间接块
     bp = bread(ip->dev, ip->addrs[NDIRECT + 1]);
